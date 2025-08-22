@@ -1,0 +1,47 @@
+{
+  "extraction_method": "auto",
+  "table_detection": true,
+  "text_patterns": ["table", "form", "structured"],
+  "output_format": {
+    "delimiter": ",",
+    "encoding": "utf-8",
+    "header_row": true
+  },
+  "processing": {
+    "clean_data": true,
+    "merge_cells": true,
+    "skip_empty_rows": true,
+    "ocr_enabled": false
+  },
+  "advanced": {
+    "verbose_logging": false,
+    "parallel_processing": true,
+    "max_workers": 4,
+    "chunk_size": 1000
+  },
+  "extraction_methods": {
+    "tabula": {
+      "java_options": ["-Xmx1024m"],
+      "lattice": true,
+      "stream": false,
+      "guess": true
+    },
+    "camelot": {
+      "flavor": "lattice",
+      "edge_tol": 50,
+      "row_tol": 2,
+      "column_tol": 0
+    },
+    "pdfplumber": {
+      "table_settings": {
+        "vertical_strategy": "lines",
+        "horizontal_strategy": "lines"
+      }
+    }
+  },
+  "ocr_settings": {
+    "language": "eng",
+    "dpi": 300,
+    "preprocessing": true
+  }
+}
