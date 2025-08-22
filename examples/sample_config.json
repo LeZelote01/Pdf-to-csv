@@ -1,0 +1,94 @@
+{
+  "extraction_method": "auto",
+  "table_detection": true,
+  "text_patterns": ["table", "form", "structured"],
+  "output_format": {
+    "delimiter": ",",
+    "encoding": "utf-8",
+    "header_row": true
+  },
+  "processing": {
+    "clean_data": true,
+    "merge_cells": true,
+    "skip_empty_rows": true,
+    "ocr_enabled": false
+  },
+  "advanced": {
+    "verbose_logging": false,
+    "parallel_processing": true,
+    "max_workers": 4,
+    "chunk_size": 1000
+  },
+  "extraction_methods": {
+    "tabula": {
+      "java_options": ["-Xmx1024m"],
+      "lattice": true,
+      "stream": false,
+      "guess": true,
+      "pages": "all",
+      "area": null,
+      "columns": null
+    },
+    "camelot": {
+      "flavor": "lattice",
+      "edge_tol": 50,
+      "row_tol": 2,
+      "column_tol": 0,
+      "line_scale": 15,
+      "copy_text": null,
+      "shift_text": ["l", "t"],
+      "split_text": false,
+      "flag_size": false
+    },
+    "pdfplumber": {
+      "table_settings": {
+        "vertical_strategy": "lines",
+        "horizontal_strategy": "lines",
+        "snap_tolerance": 3,
+        "snap_x_tolerance": 3,
+        "snap_y_tolerance": 3,
+        "join_tolerance": 3,
+        "edge_min_length": 3,
+        "min_words_vertical": 3,
+        "min_words_horizontal": 1,
+        "keep_blank_chars": false,
+        "text_tolerance": 3,
+        "text_x_tolerance": 3,
+        "text_y_tolerance": 3
+      }
+    }
+  },
+  "ocr_settings": {
+    "enabled": false,
+    "language": "eng",
+    "dpi": 300,
+    "preprocessing": true,
+    "psm": 6,
+    "oem": 3,
+    "config": "--psm 6 -c tessedit_char_whitelist=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz "
+  },
+  "templates": {
+    "invoice": {
+      "description": "Standard invoice template",
+      "extraction_method": "camelot",
+      "table_detection": true,
+      "expected_columns": ["Item", "Description", "Quantity", "Price", "Total"],
+      "header_row": 1,
+      "footer_rows": 2
+    },
+    "financial_report": {
+      "description": "Financial report template",
+      "extraction_method": "tabula",
+      "table_detection": true,
+      "expected_columns": ["Account", "Debit", "Credit", "Balance"],
+      "merge_tables": true
+    },
+    "data_table": {
+      "description": "Generic data table",
+      "extraction_method": "auto",
+      "table_detection": true,
+      "clean_data": true,
+      "skip_empty_rows": true
+    }
+  }
+}
